@@ -44,12 +44,12 @@ func handleStorm(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	if strings.Contains(strings.ToLower(m.Content), "pingstorm") {
 		if len(m.Mentions) > 0 {
-			var v = ""
+			var mentions = ""
 			for _, m := range m.Mentions {
-				v = v + " " + m.Mention()
+				mentions = mentions + " " + m.Mention()
 			}
 			for i := 0; i < 5; i++ {
-				go s.ChannelMessageSend(m.ChannelID, m.Author.Mention()+" has pinged "+v)
+				go s.ChannelMessageSend(m.ChannelID, m.Author.Mention()+" has pinged "+mentions)
 				time.Sleep(1 * time.Second)
 			}
 		} else {
