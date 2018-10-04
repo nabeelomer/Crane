@@ -52,6 +52,15 @@ func handleStorm(s *discordgo.Session, m *discordgo.MessageCreate) {
 				go s.ChannelMessageSend(m.ChannelID, m.Author.Mention()+" has pinged "+mentions)
 				time.Sleep(1 * time.Second)
 			}
+		} else if len(m.MentionRoles) > 0 {
+			var mentions = ""
+			for _, m := range m.MentionRoles {
+				mentions = mentions + " <@&" + m + ">"
+			}
+			for i := 0; i < 5; i++ {
+				go s.ChannelMessageSend(m.ChannelID, m.Author.Mention()+" has pinged "+mentions)
+				time.Sleep(1 * time.Second)
+			}
 		} else {
 			for i := 0; i < 5; i++ {
 				go s.ChannelMessageSend(m.ChannelID, m.Author.Mention()+" has pinged @here")
